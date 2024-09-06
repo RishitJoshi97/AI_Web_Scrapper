@@ -1,5 +1,8 @@
-from langchain_ollama import OllamaLLM
+#from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_groq import ChatGroq
+from langchain_core.messages import AIMessage
+import os
 
 template = (
     "You are tasked with extracting specific information from the following text content: {dom_content}. "
@@ -10,7 +13,8 @@ template = (
     "4. **Direct Data Only:** Your output should contain only the data that is explicitly requested, with no other text."
 )
 
-model = OllamaLLM(model="llama3.1")
+#model = OllamaLLM(model="llama3.1")
+model = ChatGroq(model_name='Llama3-8b-8192',api_key="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")
 
 
 def parse_with_ollama(dom_chunks, parse_description):
@@ -24,6 +28,15 @@ def parse_with_ollama(dom_chunks, parse_description):
             {"dom_content": chunk, "parse_description": parse_description}
         )
         print(f"Parsed batch: {i} of {len(dom_chunks)}")
-        parsed_results.append(response)
+        # Extract content from AIMessage
+        if isinstance(response, AIMessage):
+            parsed_results.append(response.content)
+        elif isinstance(response, str):
+            parsed_results.append(response)
+        else:
+            # Handle unexpected response type
+            print(f"Unexpected response type: {type(response)}")
+            parsed_results.append(str(response))
+            parsed_results.append(response)
 
     return "\n".join(parsed_results)
