@@ -7,8 +7,7 @@ import os
 load_dotenv()
 
 
-SBR_WEBDRIVER = "https://brd-customer-hl_25522231-zone-ai_scraper:29ievs2n2par@brd.superproxy.io:9515"
-
+SBR_WEBDRIVER = "https://brd-customer-hl_d78b329a-zone-webscrapper:ba97kmposvap@brd.superproxy.io:9515"
 
 def scrape_website(website):
     print("Connecting to Scraping Browser...")
