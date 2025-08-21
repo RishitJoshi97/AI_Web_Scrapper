@@ -14,7 +14,7 @@ template = (
 )
 
 #model = OllamaLLM(model="llama3.1")
-model = ChatGroq(model_name='Llama3-8b-8192',api_key="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")
+model = ChatGroq(model_name='Llama3-8b-8192',api_key="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")
 
 
 def parse_with_ollama(dom_chunks, parse_description):
